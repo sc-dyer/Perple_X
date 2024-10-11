@@ -50,10 +50,10 @@ FARCH = -m64
 # George's justifications/objections for/to current f77 options:
 
 # -fPIC (position independent code) added for perplexwrap, there may be some OS / machine 
-# combinations where -fPIC won’t work, but probably the Julia linkage won’t work on those 
-# either, so no functionality will be lost.  The Julia wrappers shouldn’t really use -fPIC 
+# combinations where -fPIC wonï¿½t work, but probably the Julia linkage wonï¿½t work on those 
+# either, so no functionality will be lost.  The Julia wrappers shouldnï¿½t really use -fPIC 
 # explicitly; when Julia tries to link with the wrappers, then if PIC is not available, 
-# they won’t link and it will be Julia’s problem to solve - not perplex's.
+# they wonï¿½t link and it will be Juliaï¿½s problem to solve - not perplex's.
 
 # -std=legacy prevents gfortran from warning about things like not ending numbered DO loops 
 # with CONTINUE statements, labels on IF statements, 3-way IF statements, etc.  There are a 
@@ -65,12 +65,12 @@ FARCH = -m64
 # where the program was loaded anyway, or what addresses correspond to what subprograms, so it 
 # is better left out. (True, unless you compile with -g, in which case the backtrace is useful) 
 
-FFLAGS = -O3 #original github make
+# FFLAGS = -O3 #original github make
 #FFLAGS = -O3 -std=legacy -fno-backtrace $(FARCH) #for perplex
-#FFLAGS = -O3 -fPIC -Wpedantic -ffixed-line-length-none $(FARCH) #for perplex + perplexwrap
+FFLAGS = -O3 -fPIC -Wpedantic -ffixed-line-length-none $(FARCH) #for perplex + perplexwrap
 
-#FLINK = -static-libgfortran -lgfortran -lgcc -lm $(FARCH) #for perplex + perplexwrap
-#LLINK = -shared -lgfortran -lgcc -lm $(FARCH) #for perplex + perplexwrap
+FLINK = -static-libgfortran -lgfortran -lgcc -lm $(FARCH) #for perplex + perplexwrap
+LLINK = -shared -lgfortran -lgcc -lm $(FARCH) #for perplex + perplexwrap
 
 #MYOBJ = actcor build fluids ctransf frendly meemum convex pstable pspts psvdraw pssect pt2curv vertex werami MC_fit perplexwrap
 MYOBJ = actcor build fluids ctransf frendly meemum convex pstable pspts psvdraw pssect pt2curv vertex werami MC_fit 
@@ -86,10 +86,10 @@ clean:
 ######### PerplexWrap shared library compilation #########################
 # PerplexWrap won't compile under -std=legacy, and needs link option -shared?
 
-#perplexwrap: perplexwrap.o $(LIBRARY)
-#	$(COMP77) $(FFLAGS) $(LLINK) perplexwrap.o $(LIBRARY) -o perplexwrap.so
-#perplexwrap.o: perplexwrap.f
-#	$(COMP77) $(FFLAGS) -c perplexwrap.f
+perplexwrap: perplexwrap.o $(LIBRARY)
+	$(COMP77) $(FFLAGS) $(LLINK) perplexwrap.o $(LIBRARY) -o perplexwrap.so
+perplexwrap.o: perplexwrap.f
+	$(COMP77) $(FFLAGS) -c perplexwrap.f
 
 ###################### TARGETS FOR 692+ PROGRAMS #########################
 
