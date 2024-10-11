@@ -528,7 +528,7 @@
                 *               kop(i11),kcx(i11),k2c(i11),iprop,
                 *               first,kfl(i11),tname
 
-                p
+                
 
 
             end subroutine getPropGrid
