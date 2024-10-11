@@ -5515,7 +5515,7 @@ c-----------------------------------------------------------------------
       do 
 c                                 get the root for all output files
 c                                 except if unsplt-local
-         if (iam.ne.14) then 
+         if (iam.ne.14.and.getInput) then 
 
             if (iam.eq.4) then 
 c                                 BUILD
@@ -8988,7 +8988,7 @@ c                                 second cycle of automated mode
 
                write (n8,*) refine
 
-            else if (ier.eq.0.and.iam.eq.2.and.iopt(6).ne.0) then 
+            else if (ier.eq.0.and.iam.eq.2.and.iopt(6).ne.0.and.getInput) then 
 c                                 MEEMUM, ask the user if he wants
 c                                 to use the data 
                write (*,'(/,a,a,/,a)') 'Auto-refine data exists from a',
