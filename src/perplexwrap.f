@@ -147,7 +147,7 @@
 
             end subroutine initMeemum
 
-            subroutine minimizePoint(componentNames, sysCompo, P, T,suppressWarn,cPotentials,phaseNames,phaseProps,phaseComps,sysProps)
+            subroutine minimizePoint(componentNames, sysCompo, P, T, X,mu1,mu2, suppressWarn, cPotentials,phaseNames,phaseProps,phaseComps,sysProps)
                 !Calls the main meemum minimization subroutine using sysCompo as the system composition
                 !This assumes that meemum was initialized properly and ideally sysCompo should be fed in the same order as 
                 !was returned from initMeemum but will check just in case
@@ -157,9 +157,14 @@
 
                 character (len=5), dimension(k5), intent(in) :: componentNames
                 double precision, dimension(k5), intent(in) :: sysCompo
-                double precision, intent(in) :: P, T !Pressure and temperature in bars and K
+                double precision, intent(in) :: P, T, X, mu1, mu2 !Pressure and temperature in bars and K
+                !X is molar proportion of independent X variably
+                !mu1 and mu2 are chemical potentials of those variable,
+                !build file needs to be formatted appropriately
                 
                 logical(kind=1),intent(in) :: suppressWarn !MUST BE KIND=1 TO WORK WITH JULIA
+                ! logical(kind=1),intent(in) :: readX,readmu1,readmu2
+
                 double precision, dimension(k8), intent(out) :: cPotentials
                 character(len=14), dimension(k5),intent(out)::phaseNames
                 double precision, dimension(i8,k5), intent(out)::phaseProps
@@ -287,8 +292,18 @@
                     iam = 2
                     v(1) = P
                     v(2) = T
-                    
-                   
+                    if (.not.isnan(X)) then
+                        v(3) = X
+                    end if
+
+                    if (.not.isnan(mu1)) then
+                        v(4) = mu1
+                    end if
+
+                    if (.not.isnan(mu2)) then
+                        v(5) = mu2
+                    end if
+
                     !Ensure that the names line up properly
                     do i = 1, size(componentNames)
 
