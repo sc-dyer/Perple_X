@@ -387,11 +387,11 @@
                 character*100 prject,tfname
                 common/ cst228 /prject,tfname
 
-                integer igrd
-                common/ cst311 /igrd(l7,l7)
+                ! integer igrd
+                ! common/ cst311 /igrd(l7,l7)
 
-                integer iap,ibulk
-                common/ cst74  /iap(k2),ibulk
+                ! integer iap,ibulk
+                ! common/ cst74  /iap(k2),ibulk
 
                 character fname*10, aname*6, lname*22
                 common/ csta7 /fname(h9),aname(h9),lname(h9)
@@ -507,4 +507,29 @@
 
             end subroutine pseudosection
 
+            subroutine getPropGrid(propgrid)
+                implicit none
+
+                include 'perplex_parameters.h'
+
+                integer, dimension(l7,l7), intent(out) :: propgrid !Corresponds to indices on igrd
+
+                logical nodata, ongrid
+
+                integer itri(4), jtri(4), ijpt, lop, icx, komp, i, j, dim
+
+                double precision wt(3), mode
+
+                character*14 tname
+                integer kop,kcx,k2c,iprop
+                logical kfl, first
+                double precision prop,prmx,prmn
+                common/ cst77 /prop(i11),prmx(i11),prmn(i11),
+                *               kop(i11),kcx(i11),k2c(i11),iprop,
+                *               first,kfl(i11),tname
+
+                p
+
+
+            end subroutine getPropGrid
         end module perplexwrap
