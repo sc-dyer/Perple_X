@@ -147,7 +147,7 @@
 
             end subroutine initMeemum
 
-            subroutine minimizePoint(componentNames, sysCompo, P, T, X,mu1,mu2, suppressWarn, cPotentials,phaseNames,phaseProps,phaseComps,sysProps)
+            subroutine minimizePoint(componentNames, sysCompo, P, T, X,mu1,mu2, suppressWarn, cPotentials,phaseNames,phaseProps,phaseComps,sysProps, componentMass)
                 !Calls the main meemum minimization subroutine using sysCompo as the system composition
                 !This assumes that meemum was initialized properly and ideally sysCompo should be fed in the same order as 
                 !was returned from initMeemum but will check just in case
@@ -155,8 +155,8 @@
                 !The output is a large character array that contains the normal terminal output of meemum to be parsed by the calling program
                 !This isnt elegant but its less of a headache than figuring out where all the important variables are stored
 
-                character (len=5), dimension(k5), intent(in) :: componentNames
-                double precision, dimension(k5), intent(in) :: sysCompo
+                character (len=5), dimension(k5), intent(inout) :: componentNames
+                double precision, dimension(k5), intent(inout) :: sysCompo
                 double precision, intent(in) :: P, T, X, mu1, mu2 !Pressure and temperature in bars and K
                 !X is molar proportion of independent X variably
                 !mu1 and mu2 are chemical potentials of those variable,
@@ -170,6 +170,8 @@
                 double precision, dimension(i8,k5), intent(out)::phaseProps
                 double precision, dimension(k0,k5), intent(out)::phaseComps
                 double precision, dimension(i8), intent(out)::sysProps
+                double precision, dimension(k0), intent(out) :: componentMass
+
                 logical bad
 
                 integer i, j
@@ -283,6 +285,9 @@
 
                 double precision goodc, badc
                 common/ cst20 /goodc(3),badc(3)
+
+                double precision gtot,fbulk,gtot1,fbulk1
+                common/ cxt81 /gtot,fbulk(k0),gtot1,fbulk1(k0)
             !----------------------------------------------------------------------
                 
                 ! print*,suppressWarn
@@ -329,7 +334,9 @@
                         phaseProps = props
                         phaseComps = pcomp
                         sysProps = psys
-
+                        componentNames = cname
+                        componentMass = atwt
+                        sysCompo = fbulk(1:k5)
                         !reset values in case of another system call
                         mu = mu*0.0
                         props = props*0.0
