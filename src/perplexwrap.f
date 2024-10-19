@@ -123,85 +123,7 @@
                 double precision dblk,cx
                 common/ cst314 /dblk(3,k5),cx(2),icont
 
-                logical mus
-                double precision mu
-                common/ cst330 /mu(k8),mus
-
-                double precision gtot,fbulk,gtot1,fbulk1
-                common/ cxt81 /gtot,fbulk(k0),gtot1,fbulk1(k0)
-                !Need to make sure all important data is clear
-
-                cblk = 0.0
-                ! jbulk = 0
-                ! nopt = 0.0
-                ! iopt = 0
-                ! ! lopt = 0
-                ! valu = ""
-                ! cp3 = 0.0
-                ! amt = 0.0
-                ! kkp = 0
-                ! np = 0
-                ! ncpd = 0
-                ! props = 0.0
-                ! psys = 0.0
-                ! psys1 = 0.0
-                ! pgeo = 0.0
-                ! pgeo1 = 0.0
-                ! atwt = 0.0
-                ! v= 0.0
-                ! tr = 0.0 
-                ! pr = 0.0
-                ! r = 0.0 
-                ! ps = 0.0
-                ! ipot = 0 
-                ! jv = 0
-                ! iv = 0
-                vname = ""
-                xname = ""
-                cname = ""
-                pcomp = 0.0
-                pname = ""
-                ! iwt = 0
-                dblk = 0.0
-                ! cx = 0.0
-                ! icont = 0
-                mu = 0.0
-                fbulk = 0.0
-                fbulk1 = 0.0
-
-                ! print*, cblk
-                ! print*, jbulk
-                ! print*, nopt
-                ! print*, iopt
-                ! print*, valu
-                ! print*, cp3
-                ! print*, amt
-                ! print*, kkp
-                ! print*, np
-                ! print*, ncpd
-                ! print*, props
-                ! print*, psys 
-                ! print*, psys1
-                ! print*, pgeo 
-                ! print*, pgeo1
-                ! print*, atwt 
-                ! print*, v
-                ! print*, tr
-                ! print*, pr
-                ! print*, r 
-                ! print*, ps 
-                ! print*, ipot 
-                ! print*, jv
-                ! print*, iv
-                ! print*, vname
-                ! print*, xname
-                ! print*, cname
-                ! print*, pcomp
-                ! print*, pname
-                ! print*, iwt
-                ! print*, dblk 
-                ! print*, cx
-                ! print*, icont
+                
             !----------------------------------------------------------------------
                 iam = 2
             
@@ -225,39 +147,7 @@
                 sysCompo = dblk
                 componentMass = atwt
                 meemumInit = .true.
-                ! print*, cblk
-                ! print*, jbulk
-                ! print*, nopt
-                ! print*, iopt
-                ! print*, valu
-                ! print*, cp3
-                ! print*, amt
-                ! print*, kkp
-                ! print*, np
-                ! print*, ncpd
-                ! print*, props
-                ! print*, psys 
-                ! print*, psys1
-                ! print*, pgeo 
-                ! print*, pgeo1
-                ! print*, atwt 
-                ! print*, v
-                ! print*, tr
-                ! print*, pr
-                ! print*, r 
-                ! print*, ps 
-                ! print*, ipot 
-                ! print*, jv
-                ! print*, iv
-                ! print*, vname
-                ! print*, xname
-                ! print*, cname
-                ! print*, pcomp
-                ! print*, pname
-                ! print*, iwt
-                ! print*, dblk 
-                ! print*, cx
-                ! print*, icont
+                
             end subroutine initMeemum
 
             subroutine minimizePoint(componentNames, sysCompo, P, T, X,muIn1,muIn2, suppressWarn, cPotentials,phaseNames,phaseProps,phaseComps,sysProps, componentMass)
